@@ -2,3 +2,5 @@
 *.swp
 
 test/*
+
+.DS_Store

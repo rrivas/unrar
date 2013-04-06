@@ -1,5 +1,3 @@
-require 'pathname'
-
 TOP_GEAR_DIR = "/home/rrivas/Downloads/complete/torrents/Top.Gear.S01-S18.HDTV.XviD-Mixed"
 
 def directories_present?(dir)
@@ -18,7 +16,7 @@ def read_dir dir
       p "Use #{file} to unrar #{dir}"
 
       if $stdin.gets.chomp == 'y'
-        p "lets do it"
+        
         break
       end
     end
