@@ -6,19 +6,22 @@ end
 
 def read_dir dir
   if directories_present?(dir)
-    p "checking #{dir}"
     Dir.glob("#{dir}/*").each_with_object({}) { |f, h| read_dir(f) }
   else
-    files = Dir.entries(dir).delete_if{ |x| File.directory?(x) }.sort
-    p files
+    files = Dir.entries(dir).delete_if{ |x| File.directory?(x) || x =~ /\.nfo|\.sfv/  }.sort
     
     files.each do |file|
-      p "Use #{file} to unrar #{dir}"
+      p "Unraring #{file}"
 
-      if $stdin.gets.chomp == 'y'
-        
-        break
+      `unrar x #{dir}/#{file}`
+
+      unless $?.success?
+        File.open('output', 'a+') { |f| f.write "#{file}\n" }
+      else
+        `rm -rf #{dir}`
       end
+
+      break
     end
   end
 end
