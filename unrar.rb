@@ -6,6 +6,11 @@ def sort_files(dir)
   Dir.entries(dir).delete_if{ |x| File.directory?(x) || x =~ /\.nfo|\.sfv/  }.sort
 end
 
+def rar_files(dir)
+  files = sort_files(dir)
+  files.select{ |x| x.split('.').last == 'rar' }
+end
+
 def unrar_file(dir, file)
   p "Unraring #{file}"
 
@@ -22,9 +27,9 @@ def read_dir(dir)
   if directories_present?(dir)
     Dir.glob("#{dir}/*").each_with_object({}) { |f, h| read_dir(f) }
   else
-    files = sort_files(dir)
+    file_to_unrar = rar_files(dir).first
+    p file_to_unrar
 
-    p files
   #  files.each do |file|
   #    unrar_file(dir, file)
   #    break
