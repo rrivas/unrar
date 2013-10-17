@@ -31,5 +31,5 @@ def read_dir(dir)
   end
 end
 
-directory = ARG[0]
+directory = ARGV[0]
 read_dir directory
