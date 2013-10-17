@@ -24,10 +24,11 @@ def read_dir(dir)
   else
     files = sort_files(dir)
 
-    files.each do |file|
-      unrar_file(dir, file)
-      break
-    end
+    p files
+  #  files.each do |file|
+  #    unrar_file(dir, file)
+  #    break
+  #  end
   end
 end
 
