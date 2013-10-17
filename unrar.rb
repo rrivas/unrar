@@ -21,7 +21,7 @@ def unrar_file(dir, file)
 
   p "Unraring #{archive_name}"
 
-  `unrar x #{archive_name}`
+  `unrar x #{file}`
 
   unless $?.success?
     File.open('output', 'a+') { |f| f.write "#{file}\n" }
