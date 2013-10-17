@@ -19,14 +19,14 @@ def unrar_file(dir, file)
   file = full_file_path(dir, file)
   archive_name = `unrar lb #{file}`
 
-  p "Unraring #{archive_name}"
+  p "Unraring #{archive_name}".strip
 
   `unrar x #{file}`
 
-  unless $?.success?
-    File.open('output', 'a+') { |f| f.write "#{file}\n" }
-  else
+  if $?.success?
     `rm -rf #{dir}`
+  else
+    File.open('output', 'a+') { |f| f.write "#{file}\n" }
   end
 end
 
