@@ -15,11 +15,13 @@ def full_file_path(dir, file)
   "#{dir}/#{file}"
 end
 
-def unrar_file(file)
+def unrar_file(dir, file)
+  file = full_file_path(dir, file)
   archive_name = `unrar lb #{file}`
+
   p "Unraring #{archive_name}"
 
-  `unrar x #{dir}/#{file}`
+  `unrar x #{archive_name}`
 
   unless $?.success?
     File.open('output', 'a+') { |f| f.write "#{file}\n" }
@@ -33,8 +35,7 @@ def read_dir(dir)
     Dir.glob("#{dir}/*").each_with_object({}) { |f, h| read_dir(f) }
   else
     file_to_unrar = rar_files(dir).first
-    file_to_unrar = full_file_path(dir, file_to_unrar)
-    unrar_file(file_to_unrar)
+    unrar_file(dir, file_to_unrar)
   end
 end
 
