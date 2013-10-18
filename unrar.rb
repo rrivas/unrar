@@ -30,7 +30,7 @@ def unrar_file(dir, file)
   file = full_file_path(dir, file)
   archive_name = `unrar lb #{file}`
 
-  if unpack_file(file_path)
+  if unpack_file(file)
     `rm -rf #{dir}`
   else
     File.open('output', 'a+') { |f| f.write "#{file}\n" }
