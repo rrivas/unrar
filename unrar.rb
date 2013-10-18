@@ -19,20 +19,27 @@ def full_file_path(dir, file)
 end
 
 def move_file(file_path)
+  `mv #{file_path} #{PROCESSING_DIR}`
+end
+
+def delete_directory(dir)
+  `rm -rf #{dir}`
 end
 
 def unpack_file(file_path, name)
   p "Unpacking #{name}"
+
   `unrar x #{file_path}`
   return $?.success?
 end
 
 def unrar_file(dir, file)
   file = full_file_path(dir, file)
-  archive_name = `unrar lb #{file}`
+  archive_name = `unrar lb #{file}`.strip
 
   if unpack_file(file, archive_name)
-    `rm -rf #{dir}`
+    move_file(archive_name)
+    delete_directory(dir)
   else
     File.open('output', 'a+') { |f| f.write "#{file}\n" }
   end
