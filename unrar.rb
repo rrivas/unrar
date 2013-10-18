@@ -1,4 +1,4 @@
-PROCESSING_DIR = "/home/rrivas/Desktop/TV\ Post\ Processing/"
+PROCESSING_DIR = "/home/rrivas/Desktop/TV_Post_Processing"
 RUNNING_DIR = "#{Dir.pwd}/"
 
 def directories_present?(dir)
