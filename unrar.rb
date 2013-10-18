@@ -1,3 +1,6 @@
+PROCESSING_DIR = "/home/rrivas/Desktop/TV\ Post\ Processing/"
+RUNNING_DIR = "#{Dir.pwd}/"
+
 def directories_present?(dir)
   Dir.glob("#{dir}/*").entries.any? { |x| File.directory?(x) }
 end
@@ -15,15 +18,19 @@ def full_file_path(dir, file)
   "#{dir}/#{file}"
 end
 
+def move_file(file_path)
+end
+
+def unpack_file(file_path)
+  `unrar x #{file_path}`
+  return $?.success?
+end
+
 def unrar_file(dir, file)
   file = full_file_path(dir, file)
   archive_name = `unrar lb #{file}`
 
-  p "Unraring #{archive_name}".strip
-
-  `unrar x #{file}`
-
-  if $?.success?
+  if unpack_file(file_path)
     `rm -rf #{dir}`
   else
     File.open('output', 'a+') { |f| f.write "#{file}\n" }
