@@ -50,6 +50,9 @@ def read_dir(dir)
     Dir.glob("#{dir}/*").each_with_object({}) { |f, h| read_dir(f) }
   else
     file_to_unrar = rar_files(dir).first
+    p "----------"
+    p file_to_unrar
+    p "----------"
     unrar_file(dir, file_to_unrar)
   end
 end
